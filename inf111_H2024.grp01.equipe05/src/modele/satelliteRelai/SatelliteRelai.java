@@ -22,35 +22,44 @@ package modele.satelliteRelai;
  * @version Hiver, 2024
  */
 
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
 
 import modele.communication.Message;
+import utilitaires.FileChainee;
 
 public class SatelliteRelai extends Thread{
-	
+
+	FileChainee messageCentreOp = new FileChainee();
+	FileChainee messageRover = new FileChainee();
+
+
 	static final int TEMPS_CYCLE_MS = 500;
 	static final double PROBABILITE_PERTE_MESSAGE = 0.15;
 	
 	ReentrantLock lock = new ReentrantLock();
 	
 	private Random rand = new Random();
-	
-	
+
+
 	/**
 	 * Méthode permettant d'envoyer un message vers le centre d'opération
 	 * @param msg, message à envoyer
 	 */
 	public void envoyerMessageVersCentrOp(Message msg) {
-		
+
 		lock.lock();
+
 		
 		try {
 
-			/*
-			 * (5.1) Insérer votre code ici 
-			 */
+			if(rand.nextDouble() > PROBABILITE_PERTE_MESSAGE){
+
+				messageCentreOp.ajouterElement(msg);
+
+				System.out.println(messageCentreOp);
+
+			}
 			
 		}finally {
 			lock.unlock();
@@ -62,13 +71,19 @@ public class SatelliteRelai extends Thread{
 	 * @param msg, message à envoyer
 	 */
 	public void envoyerMessageVersRover(Message msg) {
+
+
 		lock.lock();
 		
 		try {
 
-			/*
-			 * (5.2) Insérer votre code ici 
-			 */
+			if(rand.nextDouble() > PROBABILITE_PERTE_MESSAGE){
+
+				messageRover.ajouterElement(msg);
+
+				System.out.println(messageRover);
+
+			}
 			
 		}finally {
 			lock.unlock();
@@ -79,10 +94,10 @@ public class SatelliteRelai extends Thread{
 	public void run() {
 		
 		while(true) {
-			
-			/*
-			 * (5.3) Insérer votre code ici 
-			 */
+
+			messageCentreOp.enleverElement();
+			messageRover.enleverElement();
+
 
 			// attend le prochain cycle
 			try {
