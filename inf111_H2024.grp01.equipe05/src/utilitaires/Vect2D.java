@@ -1,47 +1,95 @@
 package utilitaires;
 
+/**
+ * classe utilitaire qui implémente un vecteur à deux
+ * dimensions.
+  */
+
 public class Vect2D {
 
     private double longueurX;
     private double longueurY;
 
-    public Vect2D(){ //constructeur par defaut
 
-        this.longueurX = 5; //valeur sans significance
-        this.longueurY = 7;
+
+    /**
+     * constructeur par default
+     */
+    public Vect2D(){
+
+        this.longueurX = 12; //valeur sans significance ************** will need to modify when the default value is known
+        this.longueurY = 25;
     }
 
-    public Vect2D(double x, double y){ //constructeur par parametres
+    /**
+     * constructeur par parametres
+     * @param x la longueur designer x
+     * @param y la longueur designer y
+     */
+
+    public Vect2D(double x, double y){
 
         this.longueurX = x;
         this.longueurY = y;
     }
 
-    public Vect2D(Vect2D vector){ //constructeur par copie
+    /**
+     *  constructeur par copie
+     * @param vector un vecteur
+     */
+    public Vect2D(Vect2D vector){
 
         this.longueurX = vector.longueurX;
         this.longueurY = vector.longueurY;
     }
 
-    public double getLongueurX(){ // accesseur informateur pour longueur x
+    /**
+     * accesseur informateur pour Longeur X
+     * @return longueurX
+     */
+
+    public double getLongueurX(){
         return longueurX;
     }
 
-    public double getLongueurY(){ // accesseur informateur pour longueur y
+    /**
+     * accesseur informateur pour Longeur y
+     * @return longeurY
+     */
+
+    public double getLongueurY(){
         return longueurY;
     }
 
-    public double getLongueur(){ //get Longueur qui retourne la longuer
+    /**
+     * accesseur informateur pour getLongeur
+     * @return longueur
+     */
+
+    public double getLongueur(){
 
         return Math.sqrt(Math.pow(longueurX, 2) + Math.pow(longueurY, 2));
     }
 
-    public double getAngle(){ // calcule l'angle du vector
+    /**
+     * accesseur informateur pour getAngle
+     * @return angle
+     */
+    public double getAngle(){
 
-        return Math.atan2(longueurY, longueurX);
+        if (this.longueurX == 0){
+            throw new ArithmeticException("Division par zero");
+        }
+        return Math.atan2(longueurY, longueurX); //atan2 divide val1 par val2 automatiquement
     }
 
-    public Vect2D calculerDiff(Vect2D posFin){ //method qui calcule la difference entre la position initiale et finale
+    /**
+     * method qui calcule la difference entre la position initiale et finale
+     * @param posFin variable que represente ou le vecteur fini
+     * @return differenceVect
+     */
+
+    public Vect2D calculerDiff(Vect2D posFin){
 
         double diffX = posFin.longueurX - this.longueurX;
         double diffY = posFin.longueurY - this.longueurY;
@@ -49,60 +97,59 @@ public class Vect2D {
         return new Vect2D(diffX, diffY);
     }
 
-    public void diviser(double a){ //method qui divise le vecteur par la valeur fournie
+    /**
+     * method qui divise le vecteur par la valeur fournie
+     * @param a la valeur qu'on veux diviser du vecteur
+     */
+
+    public void diviser(double a){
+
+        if (a == 0){
+            throw new ArithmeticException("Division par zero");
+        }
 
         this.longueurX /= a;
         this.longueurY /= a;
     }
 
-    public void ajouter(double x, double y){ //method qui rajoute les valeurs fournie au vecteur
+    /**
+     * method qui rajoute les valeurs fournie au vecteur
+     * @param x la longueur qui doit etre rajouter a la coordoner x
+     * @param y la longueur qui doit etre rajouter a la coordonner y
+     */
+
+    public void ajouter(double x, double y){
 
         this.longueurX += x;
         this.longueurY += y;
     }
 
+    /**
+     *  method qui transforme l'address de l'objet en string
+     * @return string
+     */
+
     @Override
-    public String toString() { // method qui transforme l'address de l'objet en string
+    public String toString() {
 
         return String.format("Les coordonee du vecteur sont: [X =" + this.getLongueurX() + ", Y=" + this.getLongueurY() + "]");
     }
 
-    public boolean equals(Vect2D vecteur){ //method qui compare les coordonee de deux vector
+    /**
+     * method qui compare l'egalite les coordonee de deux vector
+     * @param vecteur le vecteur donc nous voulons valider
+     * @return boolean
+     */
+
+    public boolean equals(Vect2D vecteur){
+
+        if(vecteur == null){
+            throw new NullPointerException("The vector cannot be null");
+        }
 
         return this.getLongueurY() == vecteur.getLongueurY() && this.getLongueurX() == vecteur.getLongueurX();
     }
 
-    public static void main(String[] args){
-
-/* Test de la class
-        Vect2D vector = new Vect2D(8, 5);
-
-
-        Vect2D posIni = new Vect2D(7, 5);
-        Vect2D posFin = new Vect2D(3, 2);
-
-        double longueur = vector.getLongueur();
-        double angle = vector.getAngle();
-
-        Vect2D posDiff = posIni.calculerDiff(posFin);
-
-        System.out.println("longueur est egale a:" + longueur);
-        System.out.println("l'angle est egale a:" + angle);
-        System.out.println(posDiff);
-
-        System.out.println(vector);
-        double a = 2;
-
-        vector.ajouter(3, 4);
-
-        System.out.println(vector);
-
-        System.out.println(posIni);
-        System.out.println(posFin);
-        boolean answer = posIni.equals(posFin);
-        System.out.println(answer);
-*/
-    }
 }
 
 

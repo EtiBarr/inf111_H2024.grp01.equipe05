@@ -3,7 +3,6 @@ package utilitaires;
 
 import modele.communication.Message;
 
-import java.util.Arrays;
 
 /**
  * linked queue
@@ -16,7 +15,7 @@ public class FileChainee {
      * des Node, c'est les block qui contienent l'information dans ma file
      * implemented pour faciliter l'implementation de ma file
      */
-    private class Node{
+    private static class Node{
         Message message;
         Node suivant;
 
@@ -111,34 +110,5 @@ public class FileChainee {
         return this.tete == null;
     }
 
-    /**
-     * pas demander, juste pour valider les output
-     * transforme la file en array pour pouvoir toute printe d'un coup. aurrait aussi pue depiler et rempiler la file
-     * @return string output
-     */
-    public String toString(){
-
-        String output;
-
-        if(!estVide()) {
-
-            //taking the elements out of the que to print them all
-            Message[] array = new Message[15]; //if more then 100 in the queue, the test will break
-            int i = 0;
-            while(i < array.length){
-                array[i] = this.pop();
-                i++;
-            }
-            output = "The object holds: " + Arrays.toString(array);
-
-            //putting the elemnts back in the queue to keep the queue intact after printing
-            for (Message k : array) {
-                this.ajouterElement(k);
-            }
-        } else {
-            output = "La file est vide";
-        }
-        return output;
-    }
-
+   
 }

@@ -31,10 +31,7 @@ public abstract class Message {
 		tempsEnvoi = System.currentTimeMillis(); // prend en note le temps de l'envoi
 	}
 
-	//******************** Not Asked, just for testing ************************
-	public String toString(){
-		return "This message sucks: " + compte + "and the other one is: " + tempsEnvoi;
-	}
+	
 	/**
 	 * Accesseur informateur, pour obtenir le temps de l'envoi
 	 * @return long, temps de l'envoi

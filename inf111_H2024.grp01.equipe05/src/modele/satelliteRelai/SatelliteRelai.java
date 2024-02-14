@@ -1,37 +1,36 @@
 package modele.satelliteRelai;
 
-/**
- * Classe simulant le satellite relai
- * 
- * Le satellite ne se contente que de transferer les messages du Rover vers le centre de contrôle
- * et vice-versa.
- * 
- * Le satellite exécute des cycles à intervale de TEMPS_CYCLE_MS. Période à
- * laquelle tous les messages en attente sont transmis. Ceci est implémenté à
- * l'aide d'une tâche (Thread).
- * 
- * Le relai satellite simule également les interférence dans l'envoi des messages.
- * 
- * Services offerts:
- *  - lierCentrOp
- *  - lierRover
- *  - envoyerMessageVersCentrOp
- *  - envoyerMessageVersRover
- * 
- * @author Frederic Simard, ETS
+/*
+  Classe simulant le satellite relai
+
+  Le satellite ne se contente que de transferer les messages du Rover vers le centre de contrôle
+  et vice-versa.
+
+  Le satellite exécute des cycles à intervale de TEMPS_CYCLE_MS. Période à
+  laquelle tous les messages en attente sont transmis. Ceci est implémenté à
+  l'aide d'une tâche (Thread).
+
+  Le relai satellite simule également les interférence dans l'envoi des messages.
+
+  Services offerts:
+   - lierCentrOp
+   - lierRover
+   - envoyerMessageVersCentrOp
+   - envoyerMessageVersRover
+
+  @author Frederic Simard, ETS
  * @version Hiver, 2024
  */
 
 import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
-
 import modele.communication.Message;
 import utilitaires.FileChainee;
 
 public class SatelliteRelai extends Thread{
 
-	FileChainee messageCentreOp = new FileChainee();
-	FileChainee messageRover = new FileChainee();
+	public FileChainee messageCentreOp = new FileChainee();
+	public FileChainee messageRover = new FileChainee();
 
 
 	static final int TEMPS_CYCLE_MS = 500;
@@ -40,6 +39,8 @@ public class SatelliteRelai extends Thread{
 	ReentrantLock lock = new ReentrantLock();
 	
 	private Random rand = new Random();
+
+
 
 
 	/**
@@ -56,8 +57,6 @@ public class SatelliteRelai extends Thread{
 			if(rand.nextDouble() > PROBABILITE_PERTE_MESSAGE){
 
 				messageCentreOp.ajouterElement(msg);
-
-				System.out.println(messageCentreOp);
 
 			}
 			
@@ -81,8 +80,6 @@ public class SatelliteRelai extends Thread{
 
 				messageRover.ajouterElement(msg);
 
-				System.out.println(messageRover);
-
 			}
 			
 		}finally {
@@ -92,11 +89,13 @@ public class SatelliteRelai extends Thread{
 
 	@Override
 	public void run() {
-		
+
+
 		while(true) {
 
-			messageCentreOp.enleverElement();
-			messageRover.enleverElement();
+			
+				messageRover.enleverElement();
+				messageCentreOp.enleverElement();
 
 
 			// attend le prochain cycle
@@ -107,7 +106,8 @@ public class SatelliteRelai extends Thread{
 			}
 		}
 	}
-	
+
+
 	
 
 }
