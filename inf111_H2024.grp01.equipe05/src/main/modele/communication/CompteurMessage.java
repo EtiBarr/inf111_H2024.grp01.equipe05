@@ -1,15 +1,15 @@
-package modele.communication;
+package main.modele.communication;
 
-/**
- * Classe qui gère les compte uniques. 
- * 
- * NOTE: thread safe
- * 
- * services offerts:
- * 	- CompteurMessage
- * 	- getCompteActuel
- * 
- * @author Frederic Simard, ETS
+/*
+  Classe qui gère les compte uniques.
+
+  NOTE: thread safe
+
+  services offerts:
+  	- CompteurMessage
+  	- getCompteActuel
+
+  @author Frederic Simard, ETS
  * @version Hiver, 2024
  */
 

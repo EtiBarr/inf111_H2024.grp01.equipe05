@@ -1,16 +1,16 @@
-package modele.communication;
+package main.modele.communication;
 /**
  * Classe de base qui définit un message.
- * 
+
  * Elle contient les informations permettant d'identifier la position 
  * du message dans la séquence et le temps de son envoi
- * 
+
  * Services offerts:
  *  - Message
  *  - getTempsEnvoi
  *  - setTempsEnvoi
  *  - getCompte
- * 
+ *
  * @author Frederic Simard, ETS
  * @version Ete, 2021
  */
@@ -27,11 +27,20 @@ public abstract class Message {
      * @param compte, identifiant unique et incrémental
      */
 	public Message(int compte) {
-		this.compte = compte; 
+		this.compte = compte;
 		tempsEnvoi = System.currentTimeMillis(); // prend en note le temps de l'envoi
 	}
 
-	
+
+	//******************** Not Asked, just for testing ************************
+	/*
+	public String toString(){
+		return "The compte is at: " + compte + " and the tempsEvoi is: " + tempsEnvoi;
+	}
+	*/
+
+	//*******************************************************************************************************************must delete
+
 	/**
 	 * Accesseur informateur, pour obtenir le temps de l'envoi
 	 * @return long, temps de l'envoi
@@ -40,21 +49,28 @@ public abstract class Message {
 		return tempsEnvoi;
 	}
 
+
+
+
 	/**
 	 * Accesseur mutateur, pour mettre à jours le temps de l'envoi
-	 * @param long, temps de la répétition de l'envoi
+	 * @param tempsEnvoi , temps de la répétition de l'envoi
+	*/
 
 	public void setTempsEnvoi(long tempsEnvoi) {
 		this.tempsEnvoi = tempsEnvoi;
 	}
+
+
 
 	/**
 	 * Accesseur informateur, pour obtenir le compte unique
 	 * @return int, compte unique
 	 */
 	public int getCompte() {
+
 		return compte;
 	}
 
-	
+
 }

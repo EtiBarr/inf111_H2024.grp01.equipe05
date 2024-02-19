@@ -1,4 +1,4 @@
-package utilitaires;
+package main.utilitaires;
 
 /**
  * classe utilitaire qui implémente un vecteur à deux

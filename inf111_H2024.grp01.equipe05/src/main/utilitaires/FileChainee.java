@@ -1,7 +1,7 @@
-package utilitaires;
+package main.utilitaires;
 
 
-import modele.communication.Message;
+import main.modele.communication.Message;
 
 
 /**
@@ -110,5 +110,34 @@ public class FileChainee {
         return this.tete == null;
     }
 
-   
+    /**
+     * pas demander, juste pour valider les output
+     * transforme la file en array pour pouvoir toute printe d'un coup. aurrait aussi pue depiler et rempiler la file
+     * @return string output
+     */
+    public String toString() {
+        StringBuilder output = new StringBuilder();
+
+        if (!estVide()) {
+            Node current = tete;
+
+            output.append("The object holds: [");
+
+            while (current != null) {
+                output.append(current.message);
+
+                if (current.suivant != null) {
+                    output.append(", ");
+                }
+
+                current = current.suivant;
+            }
+
+            output.append("]");
+        } else {
+            output.append("La file est vide");
+        }
+
+        return output.toString();
+    }
 }

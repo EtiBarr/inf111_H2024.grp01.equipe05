@@ -1,4 +1,4 @@
-package modele.satelliteRelai;
+package main.modele.satelliteRelai;
 
 /*
   Classe simulant le satellite relai
@@ -24,8 +24,10 @@ package modele.satelliteRelai;
 
 import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
-import modele.communication.Message;
-import utilitaires.FileChainee;
+import main.modele.centreControle.CentreControle;
+import main.modele.communication.Message;
+import main.modele.rover.Rover;
+import main.utilitaires.FileChainee;
 
 public class SatelliteRelai extends Thread{
 
@@ -41,6 +43,20 @@ public class SatelliteRelai extends Thread{
 	private Random rand = new Random();
 
 
+	public CentreControle centreControle;
+	public Rover rover;
+
+	public  void lierCentreOp(CentreControle centreControle){ //not sure if it should be the Message object or not
+
+		this.centreControle = centreControle; //link to centreControle
+
+	}
+
+	public void lierRover(Rover rover){
+
+		this.rover = rover; //link to rover
+
+	}
 
 
 	/**
@@ -57,6 +73,7 @@ public class SatelliteRelai extends Thread{
 			if(rand.nextDouble() > PROBABILITE_PERTE_MESSAGE){
 
 				messageCentreOp.ajouterElement(msg);
+				System.out.println("Relai centreOp works great");
 
 			}
 			
@@ -79,6 +96,7 @@ public class SatelliteRelai extends Thread{
 			if(rand.nextDouble() > PROBABILITE_PERTE_MESSAGE){
 
 				messageRover.ajouterElement(msg);
+				System.out.println("Relai rover works great");
 
 			}
 			
@@ -90,12 +108,20 @@ public class SatelliteRelai extends Thread{
 	@Override
 	public void run() {
 
+		System.out.println("Relai works great");
 
 		while(true) {
 
-			
-				messageRover.enleverElement();
-				messageCentreOp.enleverElement();
+			while (!messageCentreOp.estVide()) {
+				if (centreControle != null) {
+					centreControle.receptionMessageDeSatellite(messageCentreOp.pop());
+				}
+			}
+				while (!messageRover.estVide()) {
+					if (rover != null) {
+						rover.receptionMessageDeSatellite(messageRover.pop());
+					}
+				}
 
 
 			// attend le prochain cycle
